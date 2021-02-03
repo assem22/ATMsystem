@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="account1" class="kz.iitu.lab1Spring.Account">
+        <property name="id" value="1"/>
+        <property name="pin" value="123"/>
+        <property name="cash" value="100000.0"/>
+    </bean>
+
+    <bean id="account2" class="kz.iitu.lab1Spring.Account">
+        <property name="id" value="2"/>
+        <property name="pin" value="234"/>
+        <property name="cash" value="150000.0"/>
+    </bean>
+
+    <bean id="account3" class="kz.iitu.lab1Spring.Account">
+        <property name="id" value="3"/>
+        <property name="pin" value="345"/>
+        <property name="cash" value="200000.0"/>
+    </bean>
+
+    <bean id="accounts" class="kz.iitu.lab1Spring.Bank">
+        <property name="accounts">
+            <list>
+                <ref bean="account1"/>
+                <ref bean="account2"/>
+                <ref bean="account3"/>
+            </list>
+        </property>
+    </bean>
+</beans>
