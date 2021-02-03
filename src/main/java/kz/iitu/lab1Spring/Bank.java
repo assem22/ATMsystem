@@ -60,10 +60,20 @@ public class Bank implements BankService{
     public void checkBalance(int id) {
         for (Account account: this.accounts){
             if (account.getId() == id){
-                System.out.println("The transaction was successful!\n" +
-                        "Account balance: " + account.getCash());
+                System.out.println("Your balance: " + account.getCash());
             }
         }
+    }
+
+    @Override
+    public boolean changePin(int id, int pin, int newPin) {
+        for (Account account: this.accounts){
+            if (account.getPin() == pin && account.getId() == id){
+                account.setPin(newPin);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
