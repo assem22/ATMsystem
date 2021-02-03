@@ -31,29 +31,25 @@ public class Bank implements BankService{
     }
 
     @Override
-    public double withdrawal(double sum, int id) {
+    public void withdrawal(double sum, int id) {
         for (Account account: this.accounts){
             if (account.getId() == id){
                 double total = account.getCash() - sum;
                 account.setCash(total);
                 System.out.println("The transaction was successful!");
-                return account.getCash();
             }
         }
-        return 0;
     }
 
     @Override
-    public double deposit(double sum, int id) {
+    public void deposit(double sum, int id) {
         for (Account account: this.accounts){
             if (account.getId() == id){
                 double total = account.getCash() + sum;
                 account.setCash(total);
                 System.out.println("The transaction was successful!");
-                return account.getCash();
             }
         }
-        return 0;
     }
 
     @Override

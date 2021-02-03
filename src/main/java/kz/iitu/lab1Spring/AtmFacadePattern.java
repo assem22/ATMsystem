@@ -32,8 +32,8 @@ public class AtmFacadePattern {
     }
 
     private static void menu(int id) {
-        double resultOfDeposit = 0;
-        System.out.println("[1] deposit\n" +
+//        double resultOfDeposit = 0;
+        System.out.println("[1] top up\n" +
                 "[2] withdrawal\n" +
                 "[3] check balance\n" +
                 "[4] change pin\n" +
@@ -44,12 +44,12 @@ public class AtmFacadePattern {
             case 1:
                 System.out.println("Enter the sum: ");
                 sum = in.nextDouble();
-                resultOfDeposit = bank.deposit(sum, id);
+                bank.deposit(sum, id);
                 break;
             case 2:
                 System.out.println("Enter the sum: ");
                 sum = in.nextDouble();
-                resultOfDeposit = bank.withdrawal(sum, id);
+                bank.withdrawal(sum, id);
                 break;
             case 3:
                 bank.checkBalance(id);
