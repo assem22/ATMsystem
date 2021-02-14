@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config></context:annotation-config>
+
+    <bean id="accountService" class="kz.iitu.lab1Spring.AccountService">
+        <property name="dbUrl" value="jdbc:postgresql://localhost:5432/atm"></property>
+        <property name="dbPassword" value="admin"></property>
+        <property name="dbUsername" value="atm"></property>
+        <property name="accounts">
+            <list>
+                <ref bean="account1"/>
+                <ref bean="account2"/>
+                <ref bean="account3"/>
+            </list>
+        </property>
+    </bean>
 
     <bean id="account1" class="kz.iitu.lab1Spring.Account">
         <property name="id" value="1"/>

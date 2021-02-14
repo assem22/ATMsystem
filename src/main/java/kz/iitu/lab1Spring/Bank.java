@@ -1,9 +1,16 @@
 package kz.iitu.lab1Spring;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//@Entity
+//@Table(name = "bank")
 public class Bank implements BankService{
+//    @OneToMany(mappedBy = "bank")
     private List<Account> accounts = new ArrayList<>();
 
     public Bank() {

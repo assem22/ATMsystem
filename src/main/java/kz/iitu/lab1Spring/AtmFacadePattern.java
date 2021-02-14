@@ -3,19 +3,17 @@ package kz.iitu.lab1Spring;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class AtmFacadePattern {
-    private static ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    static ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
     private static final Scanner in = new Scanner(System.in);
     private static Bank bank = new Bank();
 
-//    private static Account account;
-
     public static void startMenu(){
-        bank = context.getBean("accounts", Bank.class);
+        bank = context.getBean("accountService", Bank.class);
+//        bank = context.getBean("accounts", Bank.class);
 //        System.out.println(bank.getAccounts());
         System.out.println("Enter card id:");
         int id = in.nextInt();
@@ -29,6 +27,7 @@ public class AtmFacadePattern {
             System.out.println("Wrong pin or card id");
             startMenu();
         }
+        ((ClassPathXmlApplicationContext) context).close();
     }
 
     private static void menu(int id) {

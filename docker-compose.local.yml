@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  postgres_gap:
+    image: postgres:11
+    container_name: ATM
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
