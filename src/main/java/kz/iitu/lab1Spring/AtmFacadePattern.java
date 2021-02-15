@@ -10,18 +10,21 @@ public class AtmFacadePattern {
 
     private static final Scanner in = new Scanner(System.in);
     private static Bank bank = new Bank();
+    private static AccountService accountService = new AccountService();
 
     public static void startMenu(){
 //        AccountService bank1 = context.getBean("accountService", AccountService.class);
-        bank = context.getBean("accounts", Bank.class);
-//        System.out.println(bank.getAccounts());
+//        bank = context.getBean("accounts", Bank.class);
+        bank.setAccounts(accountService.getAccounts());
+        System.out.println(accountService.getAccounts());
         System.out.println("Enter card id:");
         int id = in.nextInt();
         System.out.println("Enter pin: ");
         int pin = in.nextInt();
-        if (bank.checkPin(id, pin)){
+        Account account = bank.checkPin(id, pin);
+        if (account != null){
             while(true){
-                menu(id);
+                menu(account);
             }
         }else{
             System.out.println("Wrong pin or card id");
@@ -30,7 +33,7 @@ public class AtmFacadePattern {
         ((ClassPathXmlApplicationContext) context).close();
     }
 
-    private static void menu(int id) {
+    private static void menu(Account currentAcc) {
 //        double resultOfDeposit = 0;
         System.out.println("[1] top up\n" +
                 "[2] withdrawal\n" +
@@ -43,18 +46,20 @@ public class AtmFacadePattern {
             case 1:
                 System.out.println("Enter the sum: ");
                 sum = in.nextDouble();
-                bank.deposit(sum, id);
+                if (bank.deposit(sum, currentAcc.getId())){
+                    accountService.updateAccounts(currentAcc);
+                }
                 break;
             case 2:
                 System.out.println("Enter the sum: ");
                 sum = in.nextDouble();
-                bank.withdrawal(sum, id);
+                bank.withdrawal(sum, currentAcc.getId());
                 break;
             case 3:
-                bank.checkBalance(id);
+                bank.checkBalance(currentAcc.getId());
                 break;
             case 4:
-                changePin(id);
+                changePin(currentAcc.getId());
                 break;
             case 5:
                 startMenu();

@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//@Entity
-//@Table(name = "bank")
 public class Bank implements BankService{
-//    @OneToMany(mappedBy = "bank")
+
     private List<Account> accounts = new ArrayList<>();
 
     public Bank() {
@@ -28,13 +26,13 @@ public class Bank implements BankService{
         this.accounts = accounts;
     }
 
-    public boolean checkPin(int id, int pin) {
+    public Account checkPin(int id, int pin) {
         for (Account account: this.accounts){
             if (account.getId() == id && account.getPin() == pin){
-                return true;
+                return account;
             }
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -49,14 +47,16 @@ public class Bank implements BankService{
     }
 
     @Override
-    public void deposit(double sum, int id) {
+    public boolean deposit(double sum, int id) {
         for (Account account: this.accounts){
             if (account.getId() == id){
                 double total = account.getCash() + sum;
                 account.setCash(total);
                 System.out.println("The transaction was successful!");
+                return true;
             }
         }
+        return false;
     }
 
     @Override

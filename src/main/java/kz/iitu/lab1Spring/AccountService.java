@@ -12,7 +12,23 @@ public class AccountService {
     private String dbUsername;
     private String dbPassword;
     Connection connection;
+    Statement statement;
     private List<Account> accounts = new ArrayList<>();
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void updateAccounts(Account account) {
+        try {
+            String query = "UPDATE account SET pin = '" + account.getPin() + "', cash = '" + account.getCash() +"'  WHERE cardNumber = " + account.getId();
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
 
     public void setDbUrl(String dbUrl) {
         this.dbUrl = dbUrl;
@@ -35,11 +51,17 @@ public class AccountService {
         // init connection
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-            Statement statement = connection.createStatement();
-            String queryString = "create table if not exists public.account (id int not null, pin int not null, cash float)";
+            statement = connection.createStatement();
+//            String queryString = "create table if not exists public.account (id int not null, pin int not null, cash float)";
+            String queryString = "select * from account";
             ResultSet rs = statement.executeQuery(queryString);
-            setAccounts();
+            while (rs.next()){
+                Account account = new Account(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+                accounts.add(account);
+            }
+//            setAccounts();
             System.out.println("UserService.createDbConnection");
+            System.out.println(accounts);
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();

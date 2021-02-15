@@ -10,39 +10,32 @@
         <property name="dbUrl" value="jdbc:postgresql://localhost:5432/atm"/>
         <property name="dbPassword" value="atm"/>
         <property name="dbUsername" value="admin"/>
-<!--        <property name="accounts">-->
-<!--            <list>-->
-<!--                <ref bean="account1"/>-->
-<!--                <ref bean="account2"/>-->
-<!--                <ref bean="account3"/>-->
-<!--            </list>-->
-<!--        </property>-->
     </bean>
 
-    <bean id="account1" class="kz.iitu.lab1Spring.Account">
-        <property name="id" value="1"/>
-        <property name="pin" value="123"/>
-        <property name="cash" value="100000.0"/>
-    </bean>
+<!--    <bean id="account1" class="kz.iitu.lab1Spring.Account">-->
+<!--        <property name="id" value="1"/>-->
+<!--        <property name="pin" value="123"/>-->
+<!--        <property name="cash" value="100000.0"/>-->
+<!--    </bean>-->
 
-    <bean id="account2" class="kz.iitu.lab1Spring.Account">
-        <property name="id" value="2"/>
-        <property name="pin" value="234"/>
-        <property name="cash" value="150000.0"/>
-    </bean>
+<!--    <bean id="account2" class="kz.iitu.lab1Spring.Account">-->
+<!--        <property name="id" value="2"/>-->
+<!--        <property name="pin" value="234"/>-->
+<!--        <property name="cash" value="150000.0"/>-->
+<!--    </bean>-->
 
-    <bean id="account3" class="kz.iitu.lab1Spring.Account">
-        <property name="id" value="3"/>
-        <property name="pin" value="345"/>
-        <property name="cash" value="200000.0"/>
-    </bean>
+<!--    <bean id="account3" class="kz.iitu.lab1Spring.Account">-->
+<!--        <property name="id" value="3"/>-->
+<!--        <property name="pin" value="345"/>-->
+<!--        <property name="cash" value="200000.0"/>-->
+<!--    </bean>-->
 
     <bean id="accounts" class="kz.iitu.lab1Spring.Bank">
         <property name="accounts">
             <list>
-                <ref bean="account1"/>
-                <ref bean="account2"/>
-                <ref bean="account3"/>
+<!--                <ref bean="account1"/>-->
+<!--                <ref bean="account2"/>-->
+<!--                <ref bean="account3"/>-->
             </list>
         </property>
     </bean>
