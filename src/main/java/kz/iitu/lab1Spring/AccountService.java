@@ -21,7 +21,7 @@ public class AccountService {
 
     public void updateAccounts(Account account) {
         try {
-            String query = "UPDATE account SET pin = '" + account.getPin() + "', cash = '" + account.getCash() +"'  WHERE cardNumber = " + account.getId();
+            String query = "UPDATE account SET pin = '" + account.getPin() + "', cash = '" + account.getCash() +"'  WHERE id = " + account.getId();
             statement = connection.createStatement();
             statement.executeUpdate(query);
         }
@@ -52,28 +52,18 @@ public class AccountService {
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
             statement = connection.createStatement();
-//            String queryString = "create table if not exists public.account (id int not null, pin int not null, cash float)";
             String queryString = "select * from account";
             ResultSet rs = statement.executeQuery(queryString);
             while (rs.next()){
                 Account account = new Account(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                 accounts.add(account);
             }
-//            setAccounts();
             System.out.println("UserService.createDbConnection");
             System.out.println(accounts);
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
             return;
-        }
-    }
-
-    public void setAccounts() throws SQLException {
-        for (Account account: accounts){
-            Statement statement = connection.createStatement();
-            String queryString = "insert into account(id, pin, cash) values ("+ account.getId() + "," + account.getPin() + "," +account.getCash() + ")";
-            ResultSet rs = statement.executeQuery(queryString);
         }
     }
 
@@ -85,9 +75,5 @@ public class AccountService {
     public void closeConnections() throws SQLException {
         connection.close();
         System.out.println("UserService.closeConnections");
-    }
-
-    public void setAccounts(List accounts) {
-        this.accounts = accounts;
     }
 }

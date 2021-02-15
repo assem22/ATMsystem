@@ -13,10 +13,8 @@ public class AtmFacadePattern {
     private static AccountService accountService = new AccountService();
 
     public static void startMenu(){
-//        AccountService bank1 = context.getBean("accountService", AccountService.class);
-//        bank = context.getBean("accounts", Bank.class);
+        accountService = context.getBean("accountService", AccountService.class);
         bank.setAccounts(accountService.getAccounts());
-        System.out.println(accountService.getAccounts());
         System.out.println("Enter card id:");
         int id = in.nextInt();
         System.out.println("Enter pin: ");
@@ -33,8 +31,7 @@ public class AtmFacadePattern {
         ((ClassPathXmlApplicationContext) context).close();
     }
 
-    private static void menu(Account currentAcc) {
-//        double resultOfDeposit = 0;
+    private static void menu(Account account) {
         System.out.println("[1] top up\n" +
                 "[2] withdrawal\n" +
                 "[3] check balance\n" +
@@ -46,20 +43,24 @@ public class AtmFacadePattern {
             case 1:
                 System.out.println("Enter the sum: ");
                 sum = in.nextDouble();
-                if (bank.deposit(sum, currentAcc.getId())){
-                    accountService.updateAccounts(currentAcc);
+                if (bank.deposit(sum, account.getId())){
+                    accountService.updateAccounts(account);
                 }
                 break;
             case 2:
                 System.out.println("Enter the sum: ");
                 sum = in.nextDouble();
-                bank.withdrawal(sum, currentAcc.getId());
+                if (bank.withdrawal(sum, account.getId())){
+                    accountService.updateAccounts(account);
+                }
                 break;
             case 3:
-                bank.checkBalance(currentAcc.getId());
+                bank.checkBalance(account.getId());
                 break;
             case 4:
-                changePin(currentAcc.getId());
+                if (changePin(account.getId())){
+                    accountService.updateAccounts(account);
+                }
                 break;
             case 5:
                 startMenu();
@@ -67,7 +68,7 @@ public class AtmFacadePattern {
         }
     }
 
-    private static void changePin(int id) {
+    private static boolean changePin(int id) {
         System.out.println("Enter your old pin:");
         int old = in.nextInt();
         System.out.println("Enter your new pin:");
@@ -76,6 +77,7 @@ public class AtmFacadePattern {
         int repeat = in.nextInt();
         if (newPin == repeat && bank.changePin(id, old, newPin)){
             System.out.println("Your pin was successfully changed!");
+            return true;
         }else if(newPin == repeat && !bank.changePin(id, old, newPin)){
             System.out.println("Your old id incorrect. Please, try again!");
             changePin(id);
@@ -83,5 +85,6 @@ public class AtmFacadePattern {
             System.out.println("Password doesn't match. Please, try again!");
             changePin(id);
         }
+        return false;
     }
 }

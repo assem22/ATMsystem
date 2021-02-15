@@ -1,14 +1,10 @@
 package kz.iitu.lab1Spring;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Bank implements BankService{
-
     private List<Account> accounts = new ArrayList<>();
 
     public Bank() {
@@ -36,14 +32,16 @@ public class Bank implements BankService{
     }
 
     @Override
-    public void withdrawal(double sum, int id) {
+    public boolean withdrawal(double sum, int id) {
         for (Account account: this.accounts){
             if (account.getId() == id){
                 double total = account.getCash() - sum;
                 account.setCash(total);
                 System.out.println("The transaction was successful!");
+                return true;
             }
         }
+        return false;
     }
 
     @Override

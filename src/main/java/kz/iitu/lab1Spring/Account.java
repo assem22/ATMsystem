@@ -1,20 +1,9 @@
 package kz.iitu.lab1Spring;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
-//@Entity
-//@Table(name = "account")
 public class Account {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int accountId;
     private int id;
     private int pin;
     private double cash;
-
-//    @ManyToOne
-//    private Bank bank;
 
     public Account(){}
 
