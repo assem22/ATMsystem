@@ -7,16 +7,16 @@
     <context:annotation-config></context:annotation-config>
 
     <bean id="accountService" class="kz.iitu.lab1Spring.AccountService">
-        <property name="dbUrl" value="jdbc:postgresql://localhost:5432/atm"></property>
-        <property name="dbPassword" value="admin"></property>
-        <property name="dbUsername" value="atm"></property>
-        <property name="accounts">
-            <list>
-                <ref bean="account1"/>
-                <ref bean="account2"/>
-                <ref bean="account3"/>
-            </list>
-        </property>
+        <property name="dbUrl" value="jdbc:postgresql://localhost:5432/atm"/>
+        <property name="dbPassword" value="atm"/>
+        <property name="dbUsername" value="admin"/>
+<!--        <property name="accounts">-->
+<!--            <list>-->
+<!--                <ref bean="account1"/>-->
+<!--                <ref bean="account2"/>-->
+<!--                <ref bean="account3"/>-->
+<!--            </list>-->
+<!--        </property>-->
     </bean>
 
     <bean id="account1" class="kz.iitu.lab1Spring.Account">

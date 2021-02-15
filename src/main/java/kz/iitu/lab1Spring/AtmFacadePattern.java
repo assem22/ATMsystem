@@ -12,8 +12,8 @@ public class AtmFacadePattern {
     private static Bank bank = new Bank();
 
     public static void startMenu(){
-        bank = context.getBean("accountService", Bank.class);
-//        bank = context.getBean("accounts", Bank.class);
+//        AccountService bank1 = context.getBean("accountService", AccountService.class);
+        bank = context.getBean("accounts", Bank.class);
 //        System.out.println(bank.getAccounts());
         System.out.println("Enter card id:");
         int id = in.nextInt();

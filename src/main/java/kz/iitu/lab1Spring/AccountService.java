@@ -34,10 +34,9 @@ public class AccountService {
     public void createDbConnection() throws SQLException {
         // init connection
         try {
-            connection = DriverManager
-                    .getConnection(dbUrl, dbUsername, dbPassword);
+            connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
             Statement statement = connection.createStatement();
-            String queryString = "create table if not exists public.account (serial id, integer pin, real cash)";
+            String queryString = "create table if not exists public.account (id int not null, pin int not null, cash float)";
             ResultSet rs = statement.executeQuery(queryString);
             setAccounts();
             System.out.println("UserService.createDbConnection");
