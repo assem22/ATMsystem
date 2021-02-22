@@ -1,19 +1,35 @@
 package kz.iitu.lab1Spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@PropertySource("application.properties")
+@Component("accountService")
 public class AccountService {
 
+    @Value("${accountService.dbUrl}")
     private String dbUrl;
+
+    @Value("${accountService.dbUsername}")
     private String dbUsername;
+
+    @Value("${accountService.dbPassword}")
     private String dbPassword;
     Connection connection;
     Statement statement;
     private List<Account> accounts = new ArrayList<>();
+
+    @Autowired
+    public AccountService() {
+    }
 
     public List<Account> getAccounts() {
         return accounts;

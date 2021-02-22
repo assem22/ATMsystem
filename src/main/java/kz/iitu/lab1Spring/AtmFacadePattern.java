@@ -1,20 +1,32 @@
 package kz.iitu.lab1Spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Scanner;
 
 public class AtmFacadePattern {
-    static ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+    static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+//    static ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
     private static final Scanner in = new Scanner(System.in);
     private static Bank bank = new Bank();
-    private static AccountService accountService = new AccountService();
 
-    public static void startMenu(){
+    private static AccountService accountService;
+
+    public static void start(){
+//        accountService = context.getBean("accountService", AccountService.class);
+        context.scan("kz.iitu.lab1Spring");
+        context.refresh();
         accountService = context.getBean("accountService", AccountService.class);
         bank.setAccounts(accountService.getAccounts());
+        startMenu();
+    }
+    public static void startMenu(){
+//        accountService = context.getBean("accountService", AccountService.class);
+//        bank.setAccounts(accountService.getAccounts());
         System.out.println("Enter card id:");
         int id = in.nextInt();
         System.out.println("Enter pin: ");
@@ -28,7 +40,8 @@ public class AtmFacadePattern {
             System.out.println("Wrong pin or card id");
             startMenu();
         }
-        ((ClassPathXmlApplicationContext) context).close();
+//        ((ClassPathXmlApplicationContext) context).close();
+        context.close();
     }
 
     private static void menu(Account account) {
